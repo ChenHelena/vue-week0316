@@ -23,8 +23,6 @@ export default {
   },
   methods:{
     checkAdmin() {
-      const token = document.cookie.replace(/(?:(?:^|.*;\s*)helenaToken\s*=\s*([^;]*).*$)|^.*$/, '$1')
-      this.$http.defaults.headers.common.Authorization = token
       const url = `${VITE_URL}api/user/check`
       this.$http.post(url)
         .then((res) => {
@@ -94,9 +92,11 @@ export default {
   },
   mounted(){
     this.getData()
-    this.checkAdmin()
     this.productModal = new Modal('#productModal')
     this.delProductModal = new Modal('#delProductModal')
+    this.checkAdmin()
+    const token = document.cookie.replace(/(?:(?:^|.*;\s*)helenaToken\s*=\s*([^;]*).*$)|^.*$/, '$1')
+    this.$http.defaults.headers.common.Authorization = token
   }
 }
 </script>
